@@ -7,7 +7,9 @@ const CourseCard = ({course}) =>
             <div className="card-body">
                 <h5 className="card-title">{course.title}</h5>
                 <p className="card-text">Some description</p>
-                <Link to="/courses/editor" className="btn btn-primary">{course.title}</Link>
+                <Link to="/courses/editor" className="btn btn-primary">
+                    {course.title}
+                </Link>
                 <i className="fas fa-trash"></i>
             </div>
         </div>

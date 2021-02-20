@@ -41,6 +41,7 @@ class CourseManager extends React.Component {
             <div>
                 <h1>Course Manager</h1>
                 <button onClick={this.addCourse}>Add Course</button>
+                {/*show course table only if the url is in /courses/table */}
                 <Route path="/courses/table">
                     <CourseTable
                         deleteCourse={this.deleteCourse}
@@ -51,11 +52,18 @@ class CourseManager extends React.Component {
                         deleteCourse={this.deleteCourse}
                         courses={this.state.courses}/>
                 </Route>
-                <Route path="/courses/editor"
-                       render={(props) => {
 
-                           return <CourseEditor/>
-                       }}>
+                {/*<Route path="/courses/editor"*/}
+                {/*       render={(props) =>*/}
+                {/*           <CourseEditor props={props}/>*/}
+                {/*       }>*/}
+                {/*</Route>*/}
+
+                <Route path="/courses/editor"
+                       render={(props) =>
+                           <CourseEditor
+                               {...props}/>
+                       }>
                 </Route>
             </div>
         )

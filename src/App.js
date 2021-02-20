@@ -5,6 +5,7 @@ import {BrowserRouter} from "react-router-dom";
 
 function App() {
   return (
+      //browser router allows us to choose one component to another component
       <BrowserRouter>
           <div className="container-fluid">
               <CourseManager/>
