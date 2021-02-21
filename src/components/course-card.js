@@ -7,10 +7,11 @@ const CourseCard = ({course}) =>
             <div className="card-body">
                 <h5 className="card-title">{course.title}</h5>
                 <p className="card-text">Some description</p>
+                <img src={``}/>
                 <Link to="/courses/editor" className="btn btn-primary">
                     {course.title}
                 </Link>
-                <i className="fas fa-trash"></i>
+                <i className="fas fa-trash btn btn-sm"></i>
             </div>
         </div>
     </div>

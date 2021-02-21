@@ -25,6 +25,7 @@ export default class CourseTable extends React.Component {
                             this.props.courses.map((course, idx) =>
                                 <CourseRow
                                     deleteCourse={this.props.deleteCourse}
+                                    updateCourse={this.props.updateCourse}
                                     key={idx} //unique identifier, index is the key
                                     course={course}
                                     title={course.title}
