@@ -1,0 +1,64 @@
+import React, {useState} from 'react'
+import {Link} from "react-router-dom";
+import '../course.css'
+
+const CourseRow = (
+    {
+        title,
+        owner,
+        lastModify,
+        deleteCourse,
+        updateCourse,
+        course
+    }) => {
+    const [editing, setEditing] = useState(false)
+    const [newTitle, setNewTitle] = useState(title)
+
+    const saveTitle = () => {
+        setEditing(false)
+        const newCourse = {
+            ...course,
+            title: newTitle
+        }
+        updateCourse(newCourse)
+    }
+
+    return (
+        <tr>
+            <td className="priority-1">
+                {
+                    !editing &&
+                    <Link to="/courses/editor">
+                        <i className="fas fa-file"></i>
+                        {title}
+                    </Link>
+                }
+                {
+                    editing &&
+                    <input type="text"
+                           onChange={(event) => setNewTitle(event.target.value)}
+                           value={newTitle}
+                           className="form-control"/>
+                }
+            </td>
+            <td className="priority-2">{owner}</td>
+            <td className="priority-3">{lastModify}</td>
+            <td className="priority-4">
+                <div className="float-right">
+                    {
+                        editing &&
+                        <i onClick={() => saveTitle()} className="fas fa-check btn btn-sm"></i>
+                    }
+                    {
+                        !editing &&
+                        <i onClick={() => setEditing(true)} className="fas fa-edit btn btn-sm"></i>
+                    }
+                    <i onClick={() => deleteCourse(course)} className="fas fa-trash btn btn-sm"></i>
+                </div>
+
+            </td>
+        </tr>
+    )}
+
+
+export default CourseRow

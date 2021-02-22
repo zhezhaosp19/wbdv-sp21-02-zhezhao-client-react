@@ -1,18 +1,16 @@
 import React from 'react'
-import CourseTable from "./course-table";
-import CourseGrid from "./course-grid";
-import CourseEditor from "./course-editor";
+import CourseTable from "./course-table/course-table";
+import CourseGrid from "./course-grid/course-grid";
+import CourseEditor from "./course-editor/course-editor";
 import {Route} from "react-router-dom";
 import courseService from "../services/course-service";
+import './course.css';
 
 class CourseManager extends React.Component {
     state = {
         //property of class variable
-        courses: []
-        //     {title: "CS1234", owner: "alice", lastModify: "1/2/21"},
-        //     {title: "CS5520", owner: "dan", lastModify: "12/22/20"},
-        //     {title: "CS5610", owner: "emma", lastModify: "2/14/21"}
-        // ]
+        courses: [],
+        courseTitle: ''
     }
 
     componentDidMount = () =>
@@ -21,17 +19,20 @@ class CourseManager extends React.Component {
 
     addCourse = () => {
         const newCourse = {
-            title: "New Course",
-            owner: "me",
-            lastModify: "Never"
+            title: this.state.courseTitle,
+            owner: "Me",
+            lastModify: "2/1/2021"
         }
 
         courseService.createCourse(newCourse)
-            .then(course => this.setState((prevState) => {
-            let nextState = {...prevState}
-            nextState.courses.push(newCourse)
-            return nextState
-        }))
+            .then(actualCourse => {
+            this.state.courses.push(actualCourse)
+            this.setState(this.state)
+        })
+
+        this.setState({
+            courseTitle: ''
+        })
     }
 
     deleteCourse = (courseToDelete) => {
@@ -55,37 +56,67 @@ class CourseManager extends React.Component {
             })))
     }
 
+    changeValue = (value) => {
+        this.setState({
+            courseTitle: value
+        })
+    }
+
 
     render() {
         return (
             <div>
-                <h1>Course Manager</h1>
-                <button onClick={this.addCourse}>Add Course</button>
-                {/*show course table only if the url is in /courses/table */}
-                <Route path="/courses/table">
-                    <CourseTable
-                        deleteCourse={this.deleteCourse}
-                        updateCourse={this.updateCourse}
-                        courses={this.state.courses}/>
-                </Route>
-                <Route path="/courses/grid">
-                    <CourseGrid
-                        deleteCourse={this.deleteCourse}
-                        courses={this.state.courses}/>
-                </Route>
+                {/*nav-bar*/}
+                <nav className="navbar navbar-expand-lg wbdv-sticky-nav-bar">
+                    <div className="container-fluid">
+                        <div className="col-1">
+                            <i className="fas fa-bars fa-2x float-left"></i>
+                        </div>
+                        <div className="col-2">
+                            <a className="navbar-brand priority-3">Course Manager</a>
+                        </div>
+                        <div className="col-8">
+                            <input className="form-control" type="search" placeholder="New Course Title"
+                                   aria-label="Search" id="new-course-title"
+                                   value={this.state.courseTitle}
+                                    onChange={e => this.changeValue(e.target.value)}
 
-                {/*<Route path="/courses/editor"*/}
-                {/*       render={(props) =>*/}
-                {/*           <CourseEditor props={props}/>*/}
-                {/*       }>*/}
-                {/*</Route>*/}
+                            />
+                        </div>
+                        <div onClick={this.addCourse}
+                            className="col-1">
+                            <i className="fas fa-plus-circle fa-2x btn" id="plus-circle"></i>
+                        </div>
+                    </div>
+                </nav>
 
-                <Route path="/courses/editor"
-                       render={(props) =>
-                           <CourseEditor
-                               {...props}/>
-                       }>
-                </Route>
+                <div className="top-cell">
+
+                    {/*<button onClick={this.addCourse}>Add Course</button>*/}
+                    {/*show course table only if the url is in /courses/table */}
+                    <Route path="/courses/table">
+                        <CourseTable
+                            deleteCourse={this.deleteCourse}
+                            updateCourse={this.updateCourse}
+                            courses={this.state.courses}/>
+                    </Route>
+                    <Route path="/courses/grid">
+                        <CourseGrid
+                            deleteCourse={this.deleteCourse}
+                            updateCourse={this.updateCourse}
+                            courses={this.state.courses}/>
+                    </Route>
+                    <Route path="/courses/editor"
+                           render={(props) =>
+                               <CourseEditor
+                                   {...props}/>
+                           }>
+                    </Route>
+                </div>
+
+                <div onClick={this.addCourse} className="sticky-icon float-right">
+                    <i className="btn fas fa-plus-circle fa-4x" id="bottom-plus-circle"></i>
+                </div>
             </div>
         )
     }
