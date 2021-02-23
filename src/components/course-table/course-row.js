@@ -23,6 +23,11 @@ const CourseRow = (
         updateCourse(newCourse)
     }
 
+    const courseDelete = () => {
+        deleteCourse(course)
+        setEditing(false)
+    }
+
     return (
         <tr>
             <td className="priority-1">
@@ -55,7 +60,7 @@ const CourseRow = (
                     }
                     {
                         editing &&
-                        <i onClick={() => deleteCourse(course)} className="fas fa-trash btn btn-sm"></i>
+                        <i onClick={() => courseDelete()} className="fas fa-trash btn btn-sm"></i>
                     }
                 </div>
 

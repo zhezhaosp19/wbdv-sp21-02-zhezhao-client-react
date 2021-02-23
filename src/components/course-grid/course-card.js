@@ -21,6 +21,11 @@ const CourseCard = (
         updateCourse(newCourse)
     }
 
+    const courseDelete = () => {
+        deleteCourse(course)
+        setEditing(false)
+    }
+
     return (
         <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
             {/*<div className="mx-2 mb-3">*/}
@@ -56,7 +61,7 @@ const CourseCard = (
                         }
                         {
                             editing &&
-                            <i onClick={() => deleteCourse(course)} className="fas fa-trash btn btn-sm"></i>
+                            <i onClick={() => courseDelete()} className="fas fa-trash btn btn-sm"></i>
                         }
                     </div>
                 </div>
