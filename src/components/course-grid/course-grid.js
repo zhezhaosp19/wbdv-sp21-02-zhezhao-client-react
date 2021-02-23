@@ -7,8 +7,8 @@ const CourseGrid = ({courses, deleteCourse, updateCourse}) =>
     <div className="container-fluid">
         <div className="course-table-grad">
             <div className="navbar form-group row top-bar">
-                <div className="col-5 priority-3">Recent Documents</div>
-                <div className="col-3 priority-3">Owned by me
+                <div className="col-5 priority-5">Recent Documents</div>
+                <div className="col-3 priority-5">Owned by me
                     <i className="fas fa-caret-down btn"></i>
                 </div>
                 <div className="col priority-4">

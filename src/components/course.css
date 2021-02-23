@@ -77,8 +77,22 @@
     /*}*/
 }
 
-@media screen and (max-width: 1045px) and (min-width: 600px) {
+@media screen and (max-width: 1045px) and (min-width: 900px) {
     .priority-3{
+        display:none;
+    }
+}
+
+@media screen and (max-width: 900px) and (min-width: 600px) {
+    .priority-3{
+        display:none;
+    }
+
+    .priority-2{
+        display:none;
+    }
+
+    .priority-5{
         display:none;
     }
 }
@@ -90,6 +104,10 @@
     .priority-2{
         display:none;
     }
+
+    .priority-5{
+        display:none;
+    }
 }
 
 @media screen and (max-width: 300px) {
@@ -98,6 +116,10 @@
     }
     .priority-2 {
         display: none;
+    }
+
+    .priority-5{
+        display:none;
     }
 }
 
