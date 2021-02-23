@@ -19,7 +19,7 @@
 }
 
 .top-cell {
-    padding-top: 65px;
+    /*padding-top: 65px;*/
     /*padding-bottom: 12px;*/
     /*position: fixed;*/
     width: 100%;
@@ -36,6 +36,10 @@
 .card {
     margin-bottom: 1em;
     padding-bottom: 100px;
+}
+
+.course-table-grad {
+    padding-top: 65px;
 }
 
 .top-bar {

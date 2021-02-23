@@ -4,16 +4,16 @@ import {Link} from "react-router-dom";
 import './../course.css'
 
 export default class CourseTable extends React.Component {
-
     constructor(props) {
         super(props);
     }
 
     render() {
         return(
-            <div>
-                <table className="table">
-                    <tbody>
+            <div className="container-fluid">
+                <div className="course-table-grad">
+                    <table className="table">
+                        <tbody>
                         <tr className="top-bar-table">
                             <td className="priority-1">Title</td>
                             <td className="priority-2">Owned by
@@ -45,8 +45,10 @@ export default class CourseTable extends React.Component {
                                     lastModify={course.lastModify}
                                 />)
                         }
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         )
     }

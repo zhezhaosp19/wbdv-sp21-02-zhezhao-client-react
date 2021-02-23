@@ -17,6 +17,13 @@ class CourseManager extends React.Component {
         courseService.findAllCourses()
             .then(courses => this.setState({courses}))
 
+    findCourseById = (id) => {
+        courseService.findCourseById(id)
+            .then(course =>
+                this.state.courses.find(course => course._id === id)
+            )
+    }
+
     addCourse = () => {
         const newCourse = {
             title: this.state.courseTitle,
@@ -41,7 +48,8 @@ class CourseManager extends React.Component {
                 this.setState((prevState) => {
                     let nextState = {...prevState}
                     nextState.courses =
-                        prevState.courses.filter(course => course !== courseToDelete)
+                        prevState.courses.filter(course => course._id !== courseToDelete._id)
+                    // nextState.courseTitle = prevState.courseTitle
                     return nextState
                 })
             })
@@ -66,45 +74,75 @@ class CourseManager extends React.Component {
     render() {
         return (
             <div>
-                {/*nav-bar*/}
-                <nav className="navbar navbar-expand-lg wbdv-sticky-nav-bar">
-                    <div className="container-fluid">
-                        <div className="col-1">
-                            <i className="fas fa-bars fa-2x float-left"></i>
-                        </div>
-                        <div className="col-2">
-                            <a className="navbar-brand priority-3">Course Manager</a>
-                        </div>
-                        <div className="col-8">
-                            <input className="form-control" type="search" placeholder="New Course Title"
-                                   aria-label="Search" id="new-course-title"
-                                   value={this.state.courseTitle}
-                                    onChange={e => this.changeValue(e.target.value)}
-
-                            />
-                        </div>
-                        <div onClick={this.addCourse}
-                            className="col-1">
-                            <i className="fas fa-plus-circle fa-2x btn" id="plus-circle"></i>
-                        </div>
-                    </div>
-                </nav>
-
                 <div className="top-cell">
 
                     {/*<button onClick={this.addCourse}>Add Course</button>*/}
                     {/*show course table only if the url is in /courses/table */}
                     <Route path="/courses/table">
+                        <nav className="navbar navbar-expand-lg wbdv-sticky-nav-bar">
+                            <div className="container-fluid">
+                                <div className="col-1">
+                                    <i className="fas fa-bars fa-2x float-left btn"></i>
+                                </div>
+                                <div className="col-2">
+                                    <a className="navbar-brand priority-3">Course Manager</a>
+                                </div>
+                                <div className="col-8">
+                                    <input className="form-control" type="search" placeholder="New Course Title"
+                                           aria-label="Search" id="new-course-title"
+                                           value={this.state.courseTitle}
+                                           onChange={e => this.changeValue(e.target.value)}
+
+                                    />
+                                </div>
+                                <div onClick={this.addCourse}
+                                     className="col-1">
+                                    <i className="fas fa-plus-circle fa-2x btn" id="plus-circle"></i>
+                                </div>
+                            </div>
+                        </nav>
+
                         <CourseTable
                             deleteCourse={this.deleteCourse}
                             updateCourse={this.updateCourse}
                             courses={this.state.courses}/>
+
+                        <div onClick={this.addCourse} className="sticky-icon float-right">
+                            <i className="btn fas fa-plus-circle fa-4x" id="bottom-plus-circle"></i>
+                        </div>
                     </Route>
                     <Route path="/courses/grid">
+                        <nav className="navbar navbar-expand-lg wbdv-sticky-nav-bar">
+                            <div className="container-fluid">
+                                <div className="col-1">
+                                    <i className="fas fa-bars fa-2x float-left btn"></i>
+                                </div>
+                                <div className="col-2">
+                                    <a className="navbar-brand priority-3">Course Manager</a>
+                                </div>
+                                <div className="col-8">
+                                    <input className="form-control" type="search" placeholder="New Course Title"
+                                           aria-label="Search" id="new-course-title"
+                                           value={this.state.courseTitle}
+                                           onChange={e => this.changeValue(e.target.value)}
+
+                                    />
+                                </div>
+                                <div onClick={this.addCourse}
+                                     className="col-1">
+                                    <i className="fas fa-plus-circle fa-2x btn" id="plus-circle"></i>
+                                </div>
+                            </div>
+                        </nav>
+
                         <CourseGrid
                             deleteCourse={this.deleteCourse}
                             updateCourse={this.updateCourse}
                             courses={this.state.courses}/>
+
+                        <div onClick={this.addCourse} className="sticky-icon float-right">
+                            <i className="btn fas fa-plus-circle fa-4x" id="bottom-plus-circle"></i>
+                        </div>
                     </Route>
                     <Route path="/courses/editor"
                            render={(props) =>
@@ -112,10 +150,6 @@ class CourseManager extends React.Component {
                                    {...props}/>
                            }>
                     </Route>
-                </div>
-
-                <div onClick={this.addCourse} className="sticky-icon float-right">
-                    <i className="btn fas fa-plus-circle fa-4x" id="bottom-plus-circle"></i>
                 </div>
             </div>
         )

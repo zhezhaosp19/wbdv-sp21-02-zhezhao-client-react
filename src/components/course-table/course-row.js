@@ -53,7 +53,10 @@ const CourseRow = (
                         !editing &&
                         <i onClick={() => setEditing(true)} className="fas fa-edit btn btn-sm"></i>
                     }
-                    <i onClick={() => deleteCourse(course)} className="fas fa-trash btn btn-sm"></i>
+                    {
+                        editing &&
+                        <i onClick={() => deleteCourse(course)} className="fas fa-trash btn btn-sm"></i>
+                    }
                 </div>
 
             </td>

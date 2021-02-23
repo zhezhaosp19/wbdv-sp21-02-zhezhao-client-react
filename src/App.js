@@ -1,14 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import LandingPage from "./components/landing-page";
+import {BrowserRouter, Route} from "react-router-dom";
 import CourseManager from "./components/course-manager";
-import {BrowserRouter} from "react-router-dom";
 
 function App() {
   return (
       //browser router allows us to choose one component to another component
       <BrowserRouter>
-          <div className="container-fluid">
-              <CourseManager/>
+          <div>
+              {/*<CourseManager/>*/}
+              <Route path="/" exact={true} component={LandingPage}/>
+              <Route path="/courses" component={CourseManager}/>
           </div>
       </BrowserRouter>
   );
