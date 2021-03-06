@@ -5,7 +5,7 @@ import EditableItem from "../editable-item";
 const ModuleList = (
     {
         myModules = [],
-        createModule = () => alert("Create Module"),
+        createModule,
         deleteModule,
         updateModule
     }) =>
@@ -48,7 +48,6 @@ const dtpm = (dispatch) => {
             type:"UPDATE_MODULE",
             module
         })
-
     }
 }
 

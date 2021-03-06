@@ -9,7 +9,6 @@ const EditableItem = (
     const [editing, setEditing] = useState(false)
     const [cachedItem, setCachedItem] = useState(item)
 
-
     return (
         <>
             {
@@ -38,12 +37,15 @@ const EditableItem = (
                         setEditing(false)
                         updateItem(cachedItem)
                     }} className="fas fa-check btn btn-sm"></i>
-                    <i onClick={() => deleteItem(item)} className="fas fa-times btn btn-sm"></i>
+                    <i onClick={() => {
+                        setEditing(false)
+                        deleteItem(item)
+                    }} className="fas fa-times btn btn-sm"></i>
                 </>
             }
 
         </>
     )
-};
+}
 
 export default EditableItem;

@@ -1,16 +1,19 @@
 import React from 'react'
 import {Link} from "react-router-dom";
-import "./course-editor.css"
+// import "./course-editor.css"
 import moduleReducer from '../reducers/modules-reducers'
 import {combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
 import ModuleList from "./module-list";
 import LessonTabs from "./lesson-tabs";
 import lessonReducer from "../reducers/lesson-reducer";
+import TopicPill from "./topic-pills";
+import topicReducer from "../reducers/topic-reducer";
 
 const reducer = combineReducers({
     moduleReducer: moduleReducer,
-    lessonReducer: lessonReducer
+    lessonReducer: lessonReducer,
+    topicReducer: topicReducer
 })
 
 // const store = createStore(moduleReducer);
@@ -60,6 +63,7 @@ const CourseEditor = ({history}) =>
                 </div>
                 <div className="col-8">
                     <LessonTabs/>
+                    <TopicPill/>
                 </div>
             </div>
 

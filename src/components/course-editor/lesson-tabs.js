@@ -4,11 +4,10 @@ import EditableItem from "../editable-item";
 
 const LessonTabs = (
     {
-        lessons = [
-            {_id: "123", title: "Lesson A"},
-            {_id: "234", title: "Lesson B"},
-            {_id: "345", title: "Lesson C"}
-        ]
+        lessons = [],
+        createLesson,
+        deleteLesson,
+        updateLesson
     }) =>
     <div>
         <h1>Lessons</h1>
@@ -17,26 +16,18 @@ const LessonTabs = (
                 lessons.map(lesson =>
                     <li className="nav-item">
                         <a className="nav-link" href="#">
-                            <EditableItem item={lesson}/>
+                            <EditableItem
+                                updateItem={updateLesson}
+                                deleteItem={deleteLesson}
+                                item={lesson}
+                            />
                         </a>
                     </li>
                 )
             }
-            {/*<li className="nav-item">*/}
-            {/*    <a className="nav-link" href="#">Lesson 1</a>*/}
-            {/*</li>*/}
-            {/*<li className="nav-item">*/}
-            {/*    <a className="nav-link active" href="#">Lesson 2</a>*/}
-            {/*</li>*/}
-            {/*<li className="nav-item">*/}
-            {/*    <a className="nav-link" href="#">Lesson 3</a>*/}
-            {/*</li>*/}
-            {/*<li className="nav-item">*/}
-            {/*    <a className="nav-link" href="#">Lesson 4</a>*/}
-            {/*</li>*/}
-            {/*<li className="nav-item">*/}
-            {/*    <a className="nav-link" href="#">Lesson 5</a>*/}
-            {/*</li>*/}
+            <li className="nav-item">
+                <i onClick={createLesson} className="nav-link fas fa-plus plus btn btn-sm" id="plus-topic"></i>
+            </li>
         </ul>
     </div>
 
@@ -44,6 +35,18 @@ const stmp = (state) => ({
     lessons: state.lessonReducer.lessons
 })
 
-const dtpm = (dispatch) => ({})
+const dtpm = (dispatch) => {
+    return {
+        createLesson: () => dispatch({type: "CREATE_LESSON"}),
+        deleteLesson: (item) => dispatch({
+            type: "DELETE_LESSON",
+            lessonToDelete: item
+        }),
+        updateLesson: (lesson) => dispatch({
+            type: "UPDATE_LESSON",
+            lesson
+        })
+    }
+}
 
 export default connect(stmp, dtpm)(LessonTabs);
