@@ -1,6 +1,5 @@
 import React from 'react'
 import {Link, useParams} from "react-router-dom";
-// import "./course-editor.css"
 import moduleReducer from '../reducers/modules-reducers'
 import {combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
@@ -29,7 +28,7 @@ const CourseEditor = ({history}) => {
                     <Link to="/courses/table">
                         <i onClick={() => history.goBack()} className="fas fa-times fa-2x btn"></i>
                     </Link>
-                    <h1>{courseId} {moduleId}</h1>
+                    <h1>Web Dev Selected Course</h1>
 
                     {/*    <Link className="navbar-brand" style={{marginRight: "auto", marginLeft: "auto"}}*/}
                     {/*       to="/courses/editor">CS5610 Web Development</Link>*/}

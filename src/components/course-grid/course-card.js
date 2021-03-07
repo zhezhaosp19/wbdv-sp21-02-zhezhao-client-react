@@ -47,7 +47,7 @@ const CourseCard = (
 
                     <p className="card-text">Some description</p>
                     <div>
-                        <Link to="/courses/editor" className="btn btn-primary">
+                        <Link to={`/courses/editor/${course._id}`} className="btn btn-primary">
                             {course.title}
                         </Link>
                     </div>

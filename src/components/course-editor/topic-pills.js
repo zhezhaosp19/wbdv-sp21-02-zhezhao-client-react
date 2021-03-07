@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import EditableItem from "../editable-item";
+import {useParams} from "react-router-dom";
 
 const TopicPill = (
     {
@@ -8,7 +9,9 @@ const TopicPill = (
         createTopic,
         deleteTopic,
         updateTopic
-    }) =>
+    }) => {
+    const {courseId, moduleId, lessonId, topicId} = useParams()
+    return (
     <div>
         <h2>Topics</h2>
         <ul className="nav nav-pills nav-cell">
@@ -17,6 +20,7 @@ const TopicPill = (
                     <li className="nav-item">
                         <a className="nav-link" aria-current="page" href="#">
                             <EditableItem
+                                to={`/courses/editor/${courseId}/${moduleId}/${lessonId}/${topic._id}`}
                                 item={topic}
                                 deleteItem={deleteTopic}
                                 updateItem={updateTopic}
@@ -30,7 +34,8 @@ const TopicPill = (
             </li>
 
         </ul>
-    </div>
+    </div>)
+}
 
 const stmp = (state) => ({
     topics: state.topicReducer.topics

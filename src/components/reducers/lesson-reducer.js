@@ -1,22 +1,21 @@
 const initialState = {
-    lessons: [
-        {_id: "123", title: "Lesson 1"},
-        {_id: "234", title: "Lesson 2"},
-        {_id: "345", title: "Lesson 3"}
-    ]
+    lessons: []
 }
 
 const lessonReducer = (state = initialState, action) => {
     switch (action.type) {
+        case "FIND_LESSONS_FOR_MODULE":
+            return {
+                ...action,
+                lessons: action.lessons
+            }
+
         case "CREATE_LESSON":
             // alert("create lesson ")
             const newState = {
                 lessons: [
                     ...state.lessons,
-                    {
-                        title: "New Lesson Title",
-                        id: (new Date()).getTime()
-                    }
+                    action.lesson
                 ]
             }
             return newState
