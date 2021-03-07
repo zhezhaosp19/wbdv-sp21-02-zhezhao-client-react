@@ -1,33 +1,44 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {connect} from 'react-redux';
 import EditableItem from "../editable-item";
+import {useParams} from "react-router-dom"
+import moduleService from "../../services/module-service"
 
 const ModuleList = (
     {
         myModules = [],
         createModule,
         deleteModule,
-        updateModule
-    }) =>
-    <div>
-        <h2>Modules {myModules.length}</h2>
-        <ul className="list-group">
-            {
-                myModules.map(module =>
-                    <li className="list-group-item">
-                        {/*<a href="#">{module.title}</a>*/}
-                        <EditableItem
-                            updateItem={updateModule}
-                            deleteItem={deleteModule}
-                            item={module}/>
-                    </li>
-                )
-            }
-            <li className="list-group-item">
-                <i onClick={createModule} className="fas fa-plus fa-2x btn"></i>
-            </li>
-        </ul>
-    </div>
+        updateModule,
+        findModulesForCourse
+    }) => {
+    const {courseId} = useParams();
+    useEffect(() => {
+        findModulesForCourse(courseId)
+    }, [])
+    return (
+        <div>
+            <h2>Modules {myModules.length} {courseId}</h2>
+            <ul className="list-group">
+                {
+                    myModules.map(module =>
+                        <li className="list-group-item">
+                            {/*<a href="#">{module.title}</a>*/}
+                            <EditableItem
+                                to={`/courses/editor/${courseId}/${module._id}`}
+                                updateItem={updateModule}
+                                deleteItem={deleteModule}
+                                item={module}/>
+                        </li>
+                    )
+                }
+                <li className="list-group-item">
+                    <i onClick={() => createModule(courseId)} className="fas fa-plus fa-2x btn"></i>
+                </li>
+            </ul>
+        </div>
+    )
+}
 
 //read data from reducer
 const stpm = (state) =>{
@@ -39,15 +50,34 @@ const stpm = (state) =>{
 //send data to the reducer
 const dtpm = (dispatch) => {
     return {
-        createModule: () => dispatch({type: "CREATE_MODULE"}),
-        deleteModule: (item) => dispatch({
-            type: "DELETE_MODULE",
-            moduleToDelete: item
-        }),
-        updateModule: (module) => dispatch({
-            type:"UPDATE_MODULE",
-            module
-        })
+        createModule: (courseId) => {
+            moduleService.createModuleForCourse(courseId, {title: "New Module"})
+                .then(theActualModule => dispatch({
+                    type: "CREATE_MODULE",
+                    module: theActualModule
+                }))
+        },
+        deleteModule: (item) => {
+            moduleService.deleteModule(item._id)
+                .then(status => dispatch({
+                    type: "DELETE_MODULE",
+                    moduleToDelete: item
+                }))
+        },
+        updateModule: (module) => {
+            moduleService.updateModule(module._id, module)
+                .then(status => dispatch({
+                    type:"UPDATE_MODULE",
+                    module: module
+                }))
+        },
+        findModulesForCourse: (courseId) => {
+            moduleService.findModulesForCourse(courseId)
+                .then(theModule => dispatch({
+                    type: "FIND_MODULES_FOR_COURSE",
+                    modules: theModule
+                }))
+        }
     }
 }
 

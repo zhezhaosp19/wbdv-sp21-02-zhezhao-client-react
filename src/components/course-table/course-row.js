@@ -33,7 +33,7 @@ const CourseRow = (
             <td className="priority-1">
                 {
                     !editing &&
-                    <Link to="/courses/editor">
+                    <Link to={`/courses/editor/${course._id}`}>
                         <i className="fas fa-file"></i>
                         {title}
                     </Link>

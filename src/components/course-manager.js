@@ -144,7 +144,11 @@ class CourseManager extends React.Component {
                             <i className="btn fas fa-plus-circle fa-4x" id="bottom-plus-circle"></i>
                         </div>
                     </Route>
-                    <Route path="/courses/editor"
+                    {/*courseId is a placeholder since after : , it will be replaced by the real course Id*/}
+                    <Route path={[
+                        "/courses/editor/:courseId/",
+                        "/courses/editor/:courseId/:moduleId",
+                        "/courses/editor/:courseId/:moduleId/:lessonId"]}
                            render={(props) =>
                                <CourseEditor
                                    {...props}/>

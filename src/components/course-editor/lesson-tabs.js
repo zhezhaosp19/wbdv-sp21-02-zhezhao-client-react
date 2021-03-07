@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import EditableItem from "../editable-item";
+import {useParams} from "react-router-dom";
 
 const LessonTabs = (
     {
@@ -8,15 +9,18 @@ const LessonTabs = (
         createLesson,
         deleteLesson,
         updateLesson
-    }) =>
+    }) => {
+    const {courseId, moduleId} = useParams()
+    return (
     <div>
-        <h1>Lessons</h1>
+        <h1>Lessons {courseId} {moduleId}</h1>
         <ul className="nav nav-tabs">
             {
                 lessons.map(lesson =>
                     <li className="nav-item">
                         <a className="nav-link" href="#">
                             <EditableItem
+                                to={`/courses/editor/${courseId}/${moduleId}/${lesson._id}`}
                                 updateItem={updateLesson}
                                 deleteItem={deleteLesson}
                                 item={lesson}
@@ -29,7 +33,8 @@ const LessonTabs = (
                 <i onClick={createLesson} className="nav-link fas fa-plus plus btn btn-sm" id="plus-topic"></i>
             </li>
         </ul>
-    </div>
+    </div>)
+}
 
 const stmp = (state) => ({
     lessons: state.lessonReducer.lessons
