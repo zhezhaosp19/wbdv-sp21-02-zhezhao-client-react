@@ -78,7 +78,7 @@ class CourseManager extends React.Component {
 
                     {/*<button onClick={this.addCourse}>Add Course</button>*/}
                     {/*show course table only if the url is in /courses/table */}
-                    <Route path="/courses/table">
+                    <Route path="/courses/table" exact={true}>
                         <nav className="navbar navbar-expand-lg wbdv-sticky-nav-bar">
                             <div className="container-fluid">
                                 <div className="col-1">
@@ -111,7 +111,7 @@ class CourseManager extends React.Component {
                             <i className="btn fas fa-plus-circle fa-4x" id="bottom-plus-circle"></i>
                         </div>
                     </Route>
-                    <Route path="/courses/grid">
+                    <Route path="/courses/grid" exact={true}>
                         <nav className="navbar navbar-expand-lg wbdv-sticky-nav-bar">
                             <div className="container-fluid">
                                 <div className="col-1">
@@ -125,7 +125,6 @@ class CourseManager extends React.Component {
                                            aria-label="Search" id="new-course-title"
                                            value={this.state.courseTitle}
                                            onChange={e => this.changeValue(e.target.value)}
-
                                     />
                                 </div>
                                 <div onClick={this.addCourse}
@@ -146,10 +145,10 @@ class CourseManager extends React.Component {
                     </Route>
                     {/*courseId is a placeholder since after : , it will be replaced by the real course Id*/}
                     <Route path={[
-                        "/courses/editor/:courseId/",
-                        "/courses/editor/:courseId/:moduleId",
-                        "/courses/editor/:courseId/:moduleId/:lessonId",
-                        "/courses/editor/:courseId/:moduleId/:lessonId/:topicId"]}
+                        "/courses/:layout/editor/:courseId/",
+                        "/courses/:layout/editor/:courseId/:moduleId",
+                        "/courses/:layout/editor/:courseId/:moduleId/:lessonId",
+                        "/courses/:layout/editor/:courseId/:moduleId/:lessonId/:topicId"]}
                            exact={true}
                            render={(props) =>
                                <CourseEditor

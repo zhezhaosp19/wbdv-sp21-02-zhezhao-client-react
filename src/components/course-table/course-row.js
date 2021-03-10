@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import '../course.css'
 
 const CourseRow = (
@@ -13,6 +13,7 @@ const CourseRow = (
     }) => {
     const [editing, setEditing] = useState(false)
     const [newTitle, setNewTitle] = useState(title)
+    // const {layout} = useParams()
 
     const saveTitle = () => {
         setEditing(false)
@@ -33,7 +34,7 @@ const CourseRow = (
             <td className="priority-1">
                 {
                     !editing &&
-                    <Link to={`/courses/editor/${course._id}`}>
+                    <Link to={`/courses/table/editor/${course._id}`}>
                         <i className="fas fa-file"></i>
                         {title}
                     </Link>

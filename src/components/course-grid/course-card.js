@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import '../course.css'
 
 const CourseCard = (
@@ -47,7 +47,7 @@ const CourseCard = (
 
                     <p className="card-text">Some description</p>
                     <div>
-                        <Link to={`/courses/editor/${course._id}`} className="btn btn-primary">
+                        <Link to={`/courses/grid/editor/${course._id}`} className="btn btn-primary">
                             {course.title}
                         </Link>
                     </div>
