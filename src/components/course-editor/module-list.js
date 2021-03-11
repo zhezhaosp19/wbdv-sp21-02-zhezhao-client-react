@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import EditableItem from "../editable-item";
 import {useParams} from "react-router-dom"
 import moduleService from "../../services/module-service"
+import lessonService from "../../services/lesson-service";
+import topicService from "../../services/topic-service";
 
 const ModuleList = (
     {
@@ -33,7 +35,7 @@ const ModuleList = (
                     )
                 }
                 <li className="list-group-item">
-                    <i onClick={() => createModule(courseId)} className="fas fa-plus fa-2x btn"></i>
+                    <i onClick={() => createModule(courseId)} className="fas fa-plus fa-2x btn float-right"></i>
                 </li>
             </ul>
         </div>
@@ -68,7 +70,7 @@ const dtpm = (dispatch) => {
             moduleService.updateModule(module._id, module)
                 .then(status => dispatch({
                     type:"UPDATE_MODULE",
-                    module: module
+                    updateModule: module
                 }))
         },
         findModulesForCourse: (courseId) => {
@@ -76,6 +78,16 @@ const dtpm = (dispatch) => {
                 .then(theModule => dispatch({
                     type: "FIND_MODULES_FOR_COURSE",
                     modules: theModule
+                }))
+            lessonService.findLessonsForModule(undefined)
+                .then(lessons => dispatch({
+                    type: "FIND_LESSONS_FOR_MODULE",
+                    lessons
+                }))
+            topicService.findTopicForLesson(undefined)
+                .then(topics => dispatch({
+                    type: "FIND_TOPICS_FOR_LESSON",
+                    topics
                 }))
         }
     }

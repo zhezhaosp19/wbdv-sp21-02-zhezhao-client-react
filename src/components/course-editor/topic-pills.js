@@ -25,7 +25,7 @@ const TopicPill = (
     }, [lessonId])
     return (
     <div>
-        <h2>Topics</h2>
+        <h3>Topics</h3>
         <ul className="nav nav-pills nav-cell">
             {
                 topics.map(topic =>

@@ -30,9 +30,10 @@ const moduleReducer = (state = initialState, action) => {
             return newState1
         case "UPDATE_MODULE":
             return {
+                ...state,
                 modules: state.modules.map(m => {
-                    if(m._id === action.module._id) {
-                        return action.module
+                    if(m._id === action.updateModule._id) {
+                        return action.updateModule
                     } else {
                         return m
                     }
