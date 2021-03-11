@@ -10,12 +10,15 @@ const LessonTabs = (
         createLesson,
         deleteLesson,
         updateLesson,
-        findLessonsForModule
+        findLessonsForModule,
+        clearLessons
     }) => {
     const {courseId, moduleId, lessonId, layout} = useParams()
     useEffect(() => {
         if(moduleId !== "undefined" && typeof moduleId !== "undefined") {
             findLessonsForModule(moduleId)
+        } else {
+            clearLessons()
         }
     }, [moduleId])
     return (
@@ -77,7 +80,13 @@ const dtpm = (dispatch) => {
                     type: "FIND_LESSONS_FOR_MODULE",
                     lessons
                 }))
-        }
+        },
+        clearLessons: () => (
+            lessons => dispatch({
+                type: "CLEAR_LESSONS",
+                lessons
+            })
+        )
     }
 }
 

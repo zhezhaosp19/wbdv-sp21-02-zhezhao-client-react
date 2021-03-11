@@ -10,7 +10,8 @@ const TopicPill = (
         createTopic,
         deleteTopic,
         updateTopic,
-        findTopicForLesson
+        findTopicForLesson,
+        clearTopic
     }) => {
     const {courseId, moduleId, lessonId, topicId, layout} = useParams()
     useEffect(() => {
@@ -21,6 +22,8 @@ const TopicPill = (
     useEffect(() => {
         if(moduleId !== "undefined" && typeof moduleId !== "undefined") {
             findTopicForLesson(lessonId)
+        } else {
+            clearTopic()
         }
     }, [lessonId])
     return (
@@ -83,7 +86,13 @@ const dtpm = (dispatch) => {
                     type: "FIND_TOPICS_FOR_LESSON",
                     topics
                 }))
-        }
+        },
+        clearTopic: () => (
+           topics => dispatch({
+                type: "CLEAR_TOPICS",
+               topics
+            })
+        )
     }
 }
 
