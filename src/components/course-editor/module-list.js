@@ -79,16 +79,6 @@ const dtpm = (dispatch) => {
                     type: "FIND_MODULES_FOR_COURSE",
                     modules: theModule
                 }))
-            lessonService.findLessonsForModule(undefined)
-                .then(lessons => dispatch({
-                    type: "FIND_LESSONS_FOR_MODULE",
-                    lessons
-                }))
-            topicService.findTopicForLesson(undefined)
-                .then(topics => dispatch({
-                    type: "FIND_TOPICS_FOR_LESSON",
-                    topics
-                }))
         }
     }
 }

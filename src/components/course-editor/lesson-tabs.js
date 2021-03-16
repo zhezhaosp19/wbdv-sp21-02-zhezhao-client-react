@@ -18,7 +18,7 @@ const LessonTabs = (
         if(moduleId !== "undefined" && typeof moduleId !== "undefined") {
             findLessonsForModule(moduleId)
         } else {
-            clearLessons()
+            findLessonsForModule(null)
         }
     }, [moduleId])
     return (

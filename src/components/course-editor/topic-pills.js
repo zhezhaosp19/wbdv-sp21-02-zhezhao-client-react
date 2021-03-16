@@ -17,13 +17,15 @@ const TopicPill = (
     useEffect(() => {
         if(lessonId !== "undefined" && typeof lessonId !== "undefined") {
             findTopicForLesson(lessonId)
+        } else {
+            findTopicForLesson(null)
         }
     }, [lessonId])
     useEffect(() => {
         if(moduleId !== "undefined" && typeof moduleId !== "undefined") {
             findTopicForLesson(lessonId)
         } else {
-            clearTopic()
+            findTopicForLesson(null)
         }
     }, [lessonId])
     return (
