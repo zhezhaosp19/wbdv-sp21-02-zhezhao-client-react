@@ -10,11 +10,13 @@ import TopicPill from "./topic-pills";
 import topicReducer from "../reducers/topic-reducer";
 import courseService from "../../services/course-service";
 import WidgetList from "./widgets/widget-list";
+import widgetReducer from "../reducers/widget-reducer";
 
 const reducer = combineReducers({
     moduleReducer: moduleReducer,
     lessonReducer: lessonReducer,
-    topicReducer: topicReducer
+    topicReducer: topicReducer,
+    widgetReducer: widgetReducer
 })
 
 // const store = createStore(moduleReducer);
@@ -40,10 +42,10 @@ const CourseEditor = ({history}) => {
                 </nav>
 
                 <div className="row bottom-part">
-                    <div className="col-4 priority">
+                    <div className="col-3 priority">
                         <ModuleList/>
                     </div>
-                    <div className="col-8">
+                    <div className="col-9">
                         <LessonTabs/>
                         <TopicPill/>
                         <br/>

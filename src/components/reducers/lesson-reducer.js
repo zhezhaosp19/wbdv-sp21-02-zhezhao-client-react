@@ -1,16 +1,18 @@
+import {CREATE_LESSON, DELETE_LESSON, FIND_LESSONS_FOR_MODULE, UPDATE_LESSON} from "../actions/lesson-actions";
+
 const initialState = {
     lessons: []
 }
 
 const lessonReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "FIND_LESSONS_FOR_MODULE":
+        case FIND_LESSONS_FOR_MODULE:
             return {
                 ...action,
                 lessons: action.lessons
             }
 
-        case "CREATE_LESSON":
+        case CREATE_LESSON:
             // alert("create lesson ")
             const newState = {
                 lessons: [
@@ -19,13 +21,13 @@ const lessonReducer = (state = initialState, action) => {
                 ]
             }
             return newState
-        case "DELETE_LESSON":
+        case DELETE_LESSON:
             alert("Remove the lesson " + action.lessonToDelete.title)
             const newState1 = {
                 lessons: state.lessons.filter(lesson => lesson._id !== action.lessonToDelete._id)
             }
             return newState1
-        case "UPDATE_LESSON":
+        case UPDATE_LESSON:
             return {
                 lessons: state.lessons.map(lesson => {
                     if(lesson._id === action.lesson._id) {
@@ -34,10 +36,6 @@ const lessonReducer = (state = initialState, action) => {
                         return lesson
                     }
                 })
-            }
-        case "CLEAR_LESSONS":
-            return {
-                lessons: []
             }
         default:
             return state

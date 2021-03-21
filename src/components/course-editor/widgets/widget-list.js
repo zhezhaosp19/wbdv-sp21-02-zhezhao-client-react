@@ -2,55 +2,73 @@ import React, {useState, useEffect} from 'react';
 import HeadingWidget from "./heading-widget";
 import ParagraphWidget from "./paragraph-widget";
 import {useParams} from "react-router-dom";
+import widgetService from "../../../services/widget-service";
+import {connect} from "react-redux";
+import WidgetActions from "../../actions/widget-actions";
 
-const WidgetList = () => {
-    // TODO: move state management to widgets-reducer
-    const [widgets, setWidgets] = useState([]);
+const WidgetList = (
+    {
+        widgets = [],
+        createWidgetForTopic,
+        updateWidget,
+        deleteWidget,
+        findWidgetsForTopic
+    }
+    ) => {
+    // const [widgets, setWidgets] = useState([]);
+    const [editingWidget, setEditingWidget] = useState({});
     const {topicId} = useParams()
     useEffect(() => {
-        // TODO: move server communication to widgets-service
-        fetch(`http://localhost:8080/api/topics/${topicId}/widgets`)
-            .then(response => response.json())
-            .then(widgets => setWidgets(widgets))
+        findWidgetsForTopic(topicId)
     }, [topicId])
-
-    const createWidgetForTopic = () => {
-        fetch(`http://localhost:8080/api/topics/${topicId}/widgets`, {
-            method: "POST",
-            body: JSON.stringify({type: "HEADING", size: 1, text: "New Widget"}),
-            headers: {
-                'content-type': 'application/json'
-            }
-
-        }).then(response => response.json())
-            .then(actualWidget => {
-            setWidgets(widgets => ([...widgets, actualWidget]))
-        })
-    }
     return(
         <div>
-            <i onClick={createWidgetForTopic} className="fas fa-plus fa-2x float-right"/>
-            <h2>Widget List ({widgets.length})</h2>
+            <i onClick={() => createWidgetForTopic(topicId)} className="fas fa-plus fa-2x float-right btn btn-sm"/>
+            <h2>Widget List</h2>
             <ul className="list-group">
                 {
-                    widgets.map(widgets =>
-                        <li className="list-group-item" key={widgets.id}>
+                    widgets.map(widget =>
+                        <li className="list-group-item" key={widget.id}>
                             {
-                                widgets.type === "HEADING" &&
-                                <HeadingWidget widget={widgets}/>
+                                widget.type === "HEADING" &&
+                                <HeadingWidget
+                                    setWidget={setEditingWidget}
+                                    updateWidget={updateWidget}
+                                    deleteWidget={deleteWidget}
+                                    editing={editingWidget.id === widget.id}
+                                    widget={widget}/>
                             }
                             {
-                                widgets.type === "PARAGRAPH" &&
-                                <ParagraphWidget widget={widgets}/>
+                                widget.type === "PARAGRAPH" &&
+                                <ParagraphWidget
+                                    setWidget={setEditingWidget}
+                                    updateWidget={updateWidget}
+                                    deleteWidget={deleteWidget}
+                                    editing={editingWidget.id === widget.id}
+                                    widget={widget}/>
                             }
                         </li>
                     )
-
                 }
             </ul>
-            {JSON.stringify(widgets)}
+            {/*{JSON.stringify(widgets)}*/}
         </div>
     )
 }
 
-export default WidgetList
+const stpm = (state) => {
+    return {
+        widgets: state.widgetReducer.widgets
+    }
+}
+
+const dtpm = (dispatch) => {
+    return {
+        createWidgetForTopic: (topicId) => WidgetActions.createWidgetForTopic(dispatch, topicId),
+        updateWidget: (widgetId, widget) => WidgetActions.updateWidget(dispatch, widgetId, widget),
+        deleteWidget: (widgetId) => WidgetActions.deleteWidget(dispatch, widgetId),
+        findWidgetsForTopic: (topicId) => WidgetActions.findWidgetsForTopic(dispatch, topicId)
+    }
+}
+
+export default connect(stpm, dtpm)(WidgetList);

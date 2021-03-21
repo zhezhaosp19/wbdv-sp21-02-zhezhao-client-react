@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import {connect} from 'react-redux';
 import EditableItem from "../editable-item";
 import {useParams} from "react-router-dom";
-import lessonService from "../../services/lesson-service"
+import LessonActions from "../actions/lesson-actions";
 
 const LessonTabs = (
     {
@@ -53,40 +53,10 @@ const stmp = (state) => ({
 
 const dtpm = (dispatch) => {
     return {
-        createLesson: (moduleId) => {
-            lessonService.createLessonForModule(moduleId, {title: "New Lesson"})
-                .then(lesson => dispatch({
-                    type: "CREATE_LESSON",
-                    lesson
-                }))
-        },
-        deleteLesson: (item) => {
-            lessonService.deleteLesson(item._id)
-                .then(status => dispatch({
-                    type: "DELETE_LESSON",
-                    lessonToDelete: item
-                }))
-        },
-        updateLesson: (lesson) => {
-            lessonService.updateLesson(lesson._id, lesson)
-                .then(status => dispatch({
-                    type: "UPDATE_LESSON",
-                    lesson
-                }))
-        },
-        findLessonsForModule: (moduleId) => {
-            lessonService.findLessonsForModule(moduleId)
-                .then(lessons => dispatch({
-                    type: "FIND_LESSONS_FOR_MODULE",
-                    lessons
-                }))
-        },
-        clearLessons: () => (
-            lessons => dispatch({
-                type: "CLEAR_LESSONS",
-                lessons
-            })
-        )
+        createLesson: (moduleId) => LessonActions.createLesson(dispatch, moduleId),
+        deleteLesson: (item) => LessonActions.deleteLesson(dispatch, item),
+        updateLesson: (lesson) => LessonActions.updateLesson(dispatch, lesson),
+        findLessonsForModule: (moduleId) => LessonActions.findLessonsForModule(dispatch, moduleId)
     }
 }
 
