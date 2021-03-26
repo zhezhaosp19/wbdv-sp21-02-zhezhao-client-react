@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import TypeChange from "./type-change";
 
 const HeadingWidget = (
     {
@@ -14,19 +15,8 @@ const HeadingWidget = (
             {
                 editing &&
                 <>
-                    <select value={cachedWidget.type} className="form-control"
-                            onChange={e => setCachedWidget({
-                                ...cachedWidget,
-                                type: e.target.value
-                            })}>
-                        <option value={"HEADING"}>Heading</option>
-                        <option value={"PARAGRAPH"}>Paragraph</option>
-                        <option value={"VIDEO"}>Video</option>
-                        <option value={"IMAGE"}>Image</option>
-                        <option value={"LINK"}>Link</option>
-                        <option value={"LIST"}>List</option>
-                        <option value={"HTML"}>HTML</option>
-                    </select>
+                    <TypeChange widget={cachedWidget}
+                                setWidget={setCachedWidget}/>
                     <br/>
                     <div>
                         <input value={cachedWidget.text} className="form-control"
@@ -55,7 +45,7 @@ const HeadingWidget = (
                     <i onClick={() => {
                         updateWidget(cachedWidget.id, cachedWidget)
                         setWidget({})
-                    } }
+                    }}
                        className="fas fa-check btn btn-sm float-right"/>
 
                 </>

@@ -7,6 +7,7 @@ import ModuleList from "./module-list";
 import LessonTabs from "./lesson-tabs";
 import lessonReducer from "../reducers/lesson-reducer";
 import TopicPill from "./topic-pills";
+// import TopicPill from "./topic-pills-test";
 import topicReducer from "../reducers/topic-reducer";
 import courseService from "../../services/course-service";
 import WidgetList from "./widgets/widget-list";
