@@ -25,3 +25,21 @@ code {
   margin-bottom: 11px;
 }
 
+.check-quiz {
+  padding-top: 7px;
+  right: 20px;
+  position: absolute;
+}
+
+.border-bottom {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.wrong {
+  color: #f94144;
+}
+
+.correct {
+  color: #43aa8b;
+}
