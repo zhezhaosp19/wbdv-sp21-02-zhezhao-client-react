@@ -6,9 +6,6 @@ const MultiChoiceQuestion = ({question}) => {
     const [highlight, setHighlight] = useState(false)
     const _submit = () => {
         setHighlight(true)
-        // if(question.correct !== yourAnswer) {
-        //
-        // }
     }
     return(
         <div>

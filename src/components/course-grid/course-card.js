@@ -51,6 +51,10 @@ const CourseCard = (
                             {course.title}
                         </Link>
                     </div>
+                    <br/>
+                    <div>
+                        <Link to={`/courses/${course._id}/quizzes`}>Quizzes</Link>
+                    </div>
                     <div className="float-right card-icons">
                         {
                             editing &&

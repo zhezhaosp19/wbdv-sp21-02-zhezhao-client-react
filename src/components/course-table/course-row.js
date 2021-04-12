@@ -49,7 +49,7 @@ const CourseRow = (
             </td>
             <td className="priority-2">{owner}</td>
             <td className="priority-3">{lastModify}</td>
-            <td className="priority-3">
+            <td className="priority-1">
                 <Link to={`/courses/${course._id}/quizzes`}>Quizzes</Link>
             </td>
             <td className="priority-4">

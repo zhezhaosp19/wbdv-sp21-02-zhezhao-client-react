@@ -19,6 +19,7 @@ export default class CourseTable extends React.Component {
                             <td className="priority-2">Owned by
                             </td>
                             <td className="priority-3">Last Modified</td>
+                            <td className="priority-1"></td>
                             <td className="priority-4">
                                 <div className="float-right">
                                     <i className="fas fa-folder btn"></i>
