@@ -14,10 +14,14 @@ const Quiz = () => {
             .then((questions) => {
                 setQuestions(questions)
             })
-        quizService.findAttemptsForQuiz(quizId)
-            .then(res => {
-                setAttempts(res)
-            })
+        if(highlight) {
+            quizService.submitQuiz(quizId, questions)
+
+            quizService.findAttemptsForQuiz(quizId)
+                .then(res => {
+                    setAttempts(res)
+                })
+        }
     }, [quizId, highlight])
 
     return(
