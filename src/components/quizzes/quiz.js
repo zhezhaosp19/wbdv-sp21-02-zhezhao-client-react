@@ -61,7 +61,7 @@ const Quiz = () => {
                 {highlight &&
                     <>
                         <br/>
-                        <h5>List Your Scores: {attempts.score}</h5>
+                        <h5>Your Scores: {attempts.score}</h5>
                         {/*<ul className="list-group">*/}
                         {/*    {*/}
                         {/*        attempts.map((attempt) =>{*/}
