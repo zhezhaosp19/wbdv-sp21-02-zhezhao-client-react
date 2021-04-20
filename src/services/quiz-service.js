@@ -9,8 +9,23 @@ export const findQuestionForQuiz = (quizId) =>
     fetch(`${QUIZ_URL}/${quizId}/questions`)
         .then(response => response.json())
 
+export const submitQuiz = (quizId, questions) => {
+    fetch(`${QUIZ_URL}/${quizId}/attempts`, {
+        method: 'POST',
+        body: JSON.stringify(questions),
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(response => response.json())
+}
+
+export const findAttemptsForQuiz = (quizId) =>
+    fetch(`${QUIZ_URL}/${quizId}/attempts`)
+        .then(response => response.json())
 
 export default {
     findQuizzesForCourse,
-    findQuestionForQuiz
+    findQuestionForQuiz,
+    submitQuiz,
+    findAttemptsForQuiz
 }

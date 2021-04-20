@@ -1,12 +1,19 @@
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import {submitQuiz} from "../../../services/quiz-service";
 
-const MultiChoiceQuestion = ({question}) => {
+const MultiChoiceQuestion = ({question, highlight}) => {
     const [yourAnswer, setYourAnswer] = useState('')
-    const [highlight, setHighlight] = useState(false)
-    const _submit = () => {
-        setHighlight(true)
-    }
+    // const [highlight, setHighlight] = useState(false)
+    // const _submit = (answer) => {
+    //     if(yourAnswer !== '') {
+    //         setHighlight(true)
+    //         submitQuiz(quizId, answer)
+    //             .then()
+    //     } else {
+    //         alert("Please select an answer before submit")
+    //     }
+    // }
     return(
         <div>
             <h5>
@@ -28,7 +35,10 @@ const MultiChoiceQuestion = ({question}) => {
                         ${ (choice === question.correct) && highlight? 'list-group-item-success' : ''}`}>
                             <label>
                                 <input
-                                    onClick={() => setYourAnswer(choice)}
+                                    onClick={() => {
+                                        setYourAnswer(choice)
+                                        question.answer = choice
+                                    }}
                                     type="radio"
                                     name={question._id}
                                     disabled={highlight}
@@ -54,10 +64,10 @@ const MultiChoiceQuestion = ({question}) => {
             <br/>
             <p>Your answer: {yourAnswer}</p>
 
-            <Link to="#" className="btn btn-success"
-                  onClick={_submit}>
-                Grade
-            </Link>
+            {/*<Link to="#" className="btn btn-success"*/}
+            {/*      onClick={() => _submit(yourAnswer)}>*/}
+            {/*    Submit*/}
+            {/*</Link>*/}
         </div>
     )
 }
