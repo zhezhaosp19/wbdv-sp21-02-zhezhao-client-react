@@ -1,4 +1,5 @@
-const QUIZ_URL = "http://localhost:4000/api/quizzes"
+// const QUIZ_URL = "http://localhost:4000/api/quizzes"
+const QUIZ_URL = "https://wbdv-sp21-server-node-zhezhao.herokuapp.com/"
 
 export const findQuizzesForCourse = () =>
     fetch(QUIZ_URL)
