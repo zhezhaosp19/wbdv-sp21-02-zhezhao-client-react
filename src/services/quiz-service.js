@@ -11,7 +11,7 @@ export const findQuestionForQuiz = (quizId) =>
         .then(response => response.json())
 
 export const submitQuiz = (quizId, questions) => {
-    fetch(`${QUIZ_URL}/${quizId}/attempts`, {
+    return fetch(`${QUIZ_URL}/${quizId}/attempts`, {
         method: 'POST',
         body: JSON.stringify(questions),
         headers: {

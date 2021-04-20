@@ -3,25 +3,26 @@ import {Link, useParams} from "react-router-dom";
 import Question from "./questions/question";
 
 import quizService from "../../services/quiz-service";
+// import async from "async";
 
 const Quiz = () => {
     const {quizId} = useParams()
     const [questions, setQuestions] = useState([])
     const [highlight, setHighlight] = useState(false)
-    const [attempts, setAttempts] = useState({})
+    const [attempts, setAttempts] = useState([])
+
+    const getAttempts = () => {
+        quizService.findAttemptsForQuiz(quizId)
+            .then(attempt => {
+                console.log(attempt)
+                setAttempts(attempt)
+            })
+    }
     useEffect(() => {
         quizService.findQuestionForQuiz(quizId)
             .then((questions) => {
                 setQuestions(questions)
             })
-        if(highlight) {
-            quizService.submitQuiz(quizId, questions)
-
-            quizService.findAttemptsForQuiz(quizId)
-                .then(res => {
-                    setAttempts(res)
-                })
-        }
     }, [quizId, highlight])
 
     return(
@@ -45,10 +46,14 @@ const Quiz = () => {
             <br/>
 
             <Link to="#" className="btn btn-success"
-                  onClick={() => {
+                  onClick={async () => {
                       setHighlight(true)
-                      // quizService.submitQuiz(quizId, questions)
-                  }}>
+                      quizService.submitQuiz(quizId, questions).then(attempt => {
+                          // getAttempts()
+                          setAttempts(attempt)
+                      })
+                  }}
+                >
                 Submit
             </Link>
             <br/>
@@ -56,18 +61,19 @@ const Quiz = () => {
                 {highlight &&
                     <>
                         <br/>
-                        <h5>List Your Scores:</h5>
-                        <ul className="list-group">
-                            {
-                                attempts.map((attempt) =>{
-                                    return(
-                                        <li className="list-group-item">
-                                            {attempt.score}
-                                        </li>
-                                    )
-                                })
-                            }
-                        </ul>
+                        <h5>List Your Scores: {attempts.score}</h5>
+                        {/*<ul className="list-group">*/}
+                        {/*    {*/}
+                        {/*        attempts.map((attempt) =>{*/}
+                        {/*            return(*/}
+                        {/*                <li className="list-group-item">*/}
+                        {/*                    {attempt.score}*/}
+                        {/*                    /!*{JSON.stringify(attempts)}*!/*/}
+                        {/*                </li>*/}
+                        {/*            )*/}
+                        {/*        })*/}
+                        {/*    }*/}
+                        {/*</ul>*/}
                     </>
                 }
             </div>
