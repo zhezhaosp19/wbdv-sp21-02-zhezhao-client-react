@@ -47,7 +47,7 @@ const Quiz = () => {
             <Link to="#" className="btn btn-success"
                   onClick={() => {
                       setHighlight(true)
-                      quizService.submitQuiz(quizId, questions)
+                      // quizService.submitQuiz(quizId, questions)
                   }}>
                 Submit
             </Link>
